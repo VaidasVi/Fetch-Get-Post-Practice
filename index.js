@@ -33,24 +33,28 @@ const displayProperties = (properties) => {
 
 const generateFilterButtons = (buttons) => {
   const filterContainer = document.getElementById("filters-container");
+  console.log(buttons);
+  // const uniqueValues = buttons.reduce((a, v) => {
+  //   let i = a.findIndex((el) => el.city === v.city);
+  //   if (i !== -1) {
+  //     a.splice(i, 1);
+  //     return a;
+  //   }
+  //   a.push(v);
+  //   return a;
+  // }, []);
 
-  const uniqueValues = buttons.reduce((a, v) => {
-    let i = a.findIndex((el) => el.city === v.city);
-    if (i !== -1) {
-      a.splice(i, 1);
-      return a;
-    }
-    a.push(v);
-    return a;
-  }, []);
+  const uniqueValues = [...new Set(buttons.map((item) => item.city))]; // [ 'A', 'B']
+
+  console.log(uniqueValues);
 
   uniqueValues.forEach((button) => {
     const filterButton = document.createElement("button");
 
     filterButton.classList.add("filter-button");
     filterButton.setAttribute("id", "filter");
-    filterButton.setAttribute("value", button.city);
-    filterButton.innerText = button.city;
+    filterButton.setAttribute("value", button);
+    filterButton.innerText = button;
 
     filterButton.addEventListener("click", (event) => {
       document.querySelectorAll("#filter").forEach((a) => {
